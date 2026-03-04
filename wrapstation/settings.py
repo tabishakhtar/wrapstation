@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 SECRET_KEY = 'django-insecure-change-this-in-production'
 
-DEBUG = True  # Change to False in production
+DEBUG = False  # Change to False in production
 
 ALLOWED_HOSTS = ['*']  # Restrict in production
 
@@ -63,6 +63,7 @@ MIDDLEWARE = [
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -141,7 +142,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # --------------------------------------------------
 # MEDIA FILES

@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "wrapstation/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "wrapstation/wsgi.py"
+    }
+  ]
+}
