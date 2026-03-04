@@ -1,0 +1,177 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.login-wrapper {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    border-radius: 30px;
+    padding: 80px 20px;
+}
+
+.glass-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px);
+    border-radius: 35px;
+    padding: 55px 45px;
+    box-shadow: 0 35px 70px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-6px);
+}
+
+.login-title {
+    font-weight: 700;
+    font-size: 30px;
+    color: white;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: #ddd;
+}
+
+.form-label {
+    color: #eee;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-control {
+    height: 55px;
+    border-radius: 40px;
+    padding: 0 20px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 14px;
+}
+
+.form-control::placeholder {
+    color: #ddd;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 0 0 0.25rem rgba(255,107,0,0.5);
+    color: white;
+}
+
+.login-btn {
+    height: 55px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #ff6b00, #ff8c42);
+    border: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(255,107,0,0.6);
+}
+
+.register-link {
+    font-size: 13px;
+    color: #eee;
+}
+
+.register-link a {
+    color: #ff8c42;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: rgba(255,0,0,0.15);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    color: #ffb3b3;
+    font-size: 13px;
+}
+</style>
+
+<div class="login-wrapper">
+    <div class="glass-card">
+
+        <div class="text-center mb-4">
+            <div class="login-title">🌯 Wrap Station</div>
+            <div class="login-subtitle">
+                {% if role == "admin" %}
+                    🔐 Admin Login Portal
+                {% elif role == "staff" %}
+                    🧑‍🍳 Staff Login Portal
+                {% else %}
+                    🛒 Customer Login Portal
+                {% endif %}
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-message text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- IMPORTANT hidden role field -->
+            <input type="hidden" name="role" value="{{ role }}">
+
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       placeholder="Enter username"
+                       required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Enter password"
+                       required>
+            </div>
+
+            <button type="submit"
+                    class="btn login-btn w-100 text-white">
+                Secure Login
+            </button>
+        </form>
+
+        {% if role == "customer" %}
+        <div class="text-center mt-4 register-link">
+            New customer?
+            <a href="{% url 'register' %}">
+                Register here
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

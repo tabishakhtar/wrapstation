@@ -1,0 +1,28 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<h2>Update Order #{{ order.id }}</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<label>Status</label>
+<select name="status" class="form-control mb-3">
+<option>Pending</option>
+<option>Preparing</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>Cancelled</option>
+</select>
+
+<label>Payment Status</label>
+<select name="payment_status" class="form-control mb-3">
+<option>Unpaid</option>
+<option>Paid</option>
+<option>Failed</option>
+</select>
+
+<button class="btn btn-success">Update</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<h2 class="mb-4">Restaurant Admin Dashboard</h2>
+
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card p-3 shadow">
+      <h5>Total Orders</h5>
+      <h2>{{ total_orders }}</h2>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 shadow">
+      <h5>Pending Orders</h5>
+      <h2 class="text-warning">{{ pending_orders }}</h2>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 shadow">
+      <h5>Total Revenue</h5>
+      <h2 class="text-success">Rs {{ total_revenue }}</h2>
+    </div>
+  </div>
+</div>
+
+<a href="{% url 'admin_products' %}" class="btn btn-primary mb-3">Manage Products</a>
+
+<table class="table table-bordered">
+<tr>
+<th>ID</th>
+<th>User</th>
+<th>Status</th>
+<th>Payment</th>
+<th>Total</th>
+<th>Action</th>
+</tr>
+
+{% for order in orders %}
+<tr>
+<td>{{ order.id }}</td>
+<td>{{ order.user.email }}</td>
+<td>{{ order.status }}</td>
+<td>{{ order.payment_status }}</td>
+<td>Rs {{ order.total_amount }}</td>
+<td>
+<a href="{% url 'admin_update_order' order.id %}" class="btn btn-sm btn-warning">Update</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

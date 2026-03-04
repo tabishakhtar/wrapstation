@@ -1,0 +1,240 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<style>
+
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== MAIN WRAPPER ===== */
+.product-wrapper {
+    padding: 50px 20px;
+}
+
+/* ===== FORM CARD (BLACK PREMIUM STYLE) ===== */
+.product-card {
+    background: #1c1c1c;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    color: white;
+    margin-bottom: 50px;
+}
+
+.product-card h4 {
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #ff6b00;
+}
+
+/* ===== INPUTS ===== */
+.form-control {
+    border-radius: 20px;
+    background: #2a2a2a;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 12px 20px;
+}
+/* ===== FIX PLACEHOLDER COLOR ===== */
+.form-control::placeholder {
+    color: #bbb !important;
+    opacity: 1;
+}
+
+/* For textarea */
+textarea::placeholder {
+    color: #bbb !important;
+    opacity: 1;
+}
+
+.form-control:focus {
+    background: #2a2a2a;
+    border-color: #ff6b00;
+    box-shadow: none;
+    color: white;
+}
+
+textarea.form-control {
+    min-height: 100px;
+}
+
+/* ===== BUTTONS ===== */
+.btn-success {
+    background: #ff6b00;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    background: #ff8c42;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border-radius: 30px;
+    padding: 10px 25px;
+}
+
+.btn-warning {
+    border-radius: 30px;
+}
+
+.btn-danger {
+    border-radius: 30px;
+}
+
+/* ===== TABLE CARD ===== */
+.table-card {
+    background: #1c1c1c;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    color: white;
+}
+
+/* ===== TABLE ===== */
+.table {
+    color: white;
+    margin-bottom: 0;
+}
+
+.table th {
+    color: #ff6b00;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.table td {
+    vertical-align: middle;
+    border-color: rgba(255,255,255,0.05);
+}
+
+.alert {
+    border-radius: 20px;
+}
+
+</style>
+
+<div class="container product-wrapper">
+
+    <h2 class="mb-4 fw-bold">Product Management</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- ADD / EDIT FORM -->
+    <form method="post" enctype="multipart/form-data" class="product-card">
+        {% csrf_token %}
+
+        <h4>
+        {% if edit_product %}
+            Edit Product
+        {% else %}
+            Add New Product
+        {% endif %}
+        </h4>
+
+        <input type="text"
+               name="name"
+               value="{{ edit_product.name|default:'' }}"
+               class="form-control mb-3"
+               placeholder="Product Name"
+               required>
+
+        <textarea name="description"
+                  class="form-control mb-3"
+                  placeholder="Description"
+                  required>{{ edit_product.description|default:'' }}</textarea>
+
+        <input type="number"
+               step="0.01"
+               name="price"
+               value="{{ edit_product.price|default:'' }}"
+               class="form-control mb-3"
+               placeholder="Price"
+               required>
+
+        <input type="number"
+               name="stock"
+               value="{{ edit_product.stock|default:'' }}"
+               class="form-control mb-3"
+               placeholder="Stock"
+               required>
+
+        <select name="category" class="form-control mb-3" required>
+            <option value="">Select Category</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}"
+                {% if edit_product and edit_product.category.id == category.id %}
+                selected
+                {% endif %}>
+                {{ category.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="file" name="image" class="form-control mb-4">
+
+        <button class="btn btn-success">
+            {% if edit_product %}
+                Update Product
+            {% else %}
+                Add Product
+            {% endif %}
+        </button>
+
+        {% if edit_product %}
+        <a href="{% url 'add_product' %}" class="btn btn-secondary ms-2">
+            Cancel Edit
+        </a>
+        {% endif %}
+
+    </form>
+
+    <!-- PRODUCT LIST TABLE -->
+    <div class="table-card">
+        <h4 class="mb-4">All Products</h4>
+
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>Rs {{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>
+                    <a href="?edit={{ product.id }}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="?delete={{ product.id }}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

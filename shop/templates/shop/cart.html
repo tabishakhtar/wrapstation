@@ -1,0 +1,208 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* ===== PAGE BACKGROUND (LIGHT GREY) ===== */
+.cart-wrapper {
+    min-height: 90vh;
+    padding: 100px 20px;
+    background: #f2f2f2;   /* clean light grey */
+}
+
+/* ===== GLASS BLACK MAIN CARD ===== */
+.cart-card {
+    max-width: 1000px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 60px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    color: white;
+    transition: 0.4s ease;
+}
+
+/* subtle hover animation */
+.cart-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+}
+
+/* TITLE */
+.cart-title {
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 50px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+/* ===== ITEM CARD (GLASS STYLE) ===== */
+.item-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.3s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.08);
+}
+
+/* TEXT */
+.item-info h5 {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.item-info p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* ===== QTY BUTTONS ===== */
+.qty-btn {
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-weight: bold;
+    border: none;
+    transition: 0.2s ease;
+}
+
+.minus-btn {
+    background: #ff4d4d;
+    color: white;
+}
+
+.plus-btn {
+    background: #28a745;
+    color: white;
+}
+
+.qty-btn:hover {
+    transform: scale(1.1);
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+    background: #dc3545;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 13px;
+    transition: 0.3s ease;
+}
+
+.remove-btn:hover {
+    background: #c82333;
+}
+
+/* ===== TOTAL SECTION ===== */
+.total-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: right;
+}
+
+/* CHECKOUT BUTTON */
+.checkout-btn {
+    margin-top: 15px;
+    border-radius: 50px;
+    height: 55px;
+    background: linear-gradient(45deg, #ff6b00, #ff8c42);
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+
+    /* FIX TEXT CENTER */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(255,107,0,0.5);
+}
+
+/* EMPTY STATE */
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    padding: 60px 0;
+    color: #ccc;
+}
+
+</style>
+
+<div class="cart-wrapper">
+    <div class="cart-card">
+
+        <div class="cart-title">
+            🛒 Your Cart
+        </div>
+
+        {% for item in cart_items %}
+        <div class="item-card">
+
+            <div class="item-info">
+                <h5>{{ item.product.name }}</h5>
+                <p>Price: Rs {{ item.product.price }}</p>
+                <p><strong>Total: Rs {{ item.total_price }}</strong></p>
+            </div>
+
+            <div class="text-center">
+                <a href="{% url 'decrease_quantity' item.id %}" 
+                   class="btn qty-btn minus-btn">−</a>
+
+                <span class="mx-3">{{ item.quantity }}</span>
+
+                <a href="{% url 'increase_quantity' item.id %}" 
+                   class="btn qty-btn plus-btn">+</a>
+            </div>
+
+            <div>
+                <a href="{% url 'remove_from_cart' item.id %}" 
+                   class="btn remove-btn text-white">
+                    Remove
+                </a>
+            </div>
+
+        </div>
+        {% empty %}
+            <div class="empty-cart">
+                Your cart is empty 🥲
+            </div>
+        {% endfor %}
+
+        {% if cart_items %}
+        <div class="total-section">
+            <h4>Total Amount: 
+                <span style="color:#ff8c42;">Rs {{ total }}</span>
+            </h4>
+
+            <a href="{% url 'checkout' %}" 
+               class="btn checkout-btn text-white px-5">
+                Proceed to Checkout
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

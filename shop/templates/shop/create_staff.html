@@ -1,0 +1,136 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+
+<style>
+
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== WRAPPER ===== */
+.staff-wrapper {
+    padding: 60px 20px;
+}
+
+/* ===== CARD STYLE (MATCH ADMIN THEME) ===== */
+.staff-card {
+    max-width: 600px;
+    margin: auto;
+    background: #1c1c1c;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    color: white;
+}
+
+/* ===== TITLE ===== */
+.staff-card h2 {
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #ff6b00;
+}
+
+/* ===== LABELS ===== */
+.staff-card label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* ===== INPUTS ===== */
+.form-control {
+    border-radius: 20px;
+    background: #2a2a2a;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 12px 20px;
+}
+
+.form-control:focus {
+    background: #2a2a2a;
+    border-color: #ff6b00;
+    box-shadow: none;
+    color: white;
+}
+
+/* ===== PLACEHOLDER FIX ===== */
+.form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+    opacity: 1;
+}
+
+/* ===== BUTTONS ===== */
+.btn-success {
+    background: #ff6b00;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    background: #ff8c42;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border-radius: 30px;
+    padding: 10px 25px;
+}
+
+.alert {
+    border-radius: 20px;
+}
+
+</style>
+
+<div class="container staff-wrapper">
+
+    <div class="staff-card">
+
+        <h2>Create Staff Member</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+            </div>
+
+            <div class="mt-4 d-flex gap-3">
+                <button type="submit" class="btn btn-success">
+                    Create Staff
+                </button>
+
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

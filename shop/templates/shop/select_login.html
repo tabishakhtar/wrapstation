@@ -1,0 +1,106 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.login-portal-section {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portal-card {
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    padding: 30px;
+    text-align: center;
+    background: white;
+}
+
+.portal-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.portal-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.portal-btn {
+    border-radius: 30px;
+    padding: 8px 25px;
+    font-weight: 600;
+}
+</style>
+
+<div class="container login-portal-section">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Login Portal</h1>
+        <p class="text-muted">Select your access type below</p>
+    </div>
+
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4 justify-content-center">
+
+        <!-- ADMIN -->
+        <div class="col-md-4">
+            <div class="portal-card shadow">
+                <div class="portal-icon">👑</div>
+                <h4 class="fw-bold mb-3">Admin Login Portal</h4>
+                <p class="text-muted">
+                    Manage orders, revenue & system control.
+                </p>
+                <a href="{% url 'login' %}?next=/admin-panel/"
+                   class="btn btn-dark portal-btn mt-3">
+                    Login as Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- STAFF -->
+        <div class="col-md-4">
+            <div class="portal-card shadow">
+                <div class="portal-icon">🚚</div>
+                <h4 class="fw-bold mb-3">Staff Login Portal</h4>
+                <p class="text-muted">
+                    View approved orders & delivery details.
+                </p>
+                <a href="{% url 'login' %}?next=/staff-dashboard/"
+                   class="btn btn-warning portal-btn mt-3">
+                    Login as Staff
+                </a>
+            </div>
+        </div>
+
+        <!-- CUSTOMER -->
+        <div class="col-md-4">
+            <div class="portal-card shadow">
+                <div class="portal-icon">🛍️</div>
+                <h4 class="fw-bold mb-3">Customer Login Portal</h4>
+                <p class="text-muted">
+                    Order delicious wraps & track your orders.
+                </p>
+                <a href="{% url 'login' %}?next=/"
+                   class="btn btn-primary portal-btn mt-3">
+                    Login as Customer
+                </a>
+
+                <div class="mt-3">
+                    <a href="{% url 'register' %}" class="text-decoration-none">
+                        New user? Register here
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
