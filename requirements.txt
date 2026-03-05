@@ -1,4 +1,5 @@
 Django
+channels
 gunicorn
 whitenoise
 psycopg2-binary
