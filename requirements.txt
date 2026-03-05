@@ -1,5 +1,6 @@
 Django
 channels
+django-allauth
 gunicorn
 whitenoise
 psycopg2-binary
