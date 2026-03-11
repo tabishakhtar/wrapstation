@@ -1,7 +1,8 @@
 Django
+gunicorn
+whitenoise
 channels
 daphne
 django-allauth
-gunicorn
-whitenoise
+reportlab
 psycopg2-binary
