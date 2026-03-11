@@ -19,9 +19,7 @@ SECRET_KEY = 'django-insecure-change-this-in-production'
 
 DEBUG = False  # Change to False in production
 
-ALLOWED_HOSTS = ["wrapstation.onrender.com",
-    "localhost",
-    "127.0.0.1"]  # Restrict in production
+ALLOWED_HOSTS = ['']  # Restrict in production
 
 
 # --------------------------------------------------
