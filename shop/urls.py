@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth.views import LogoutView
 from . import views
 from .views import customer_register
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 
@@ -69,3 +71,10 @@ urlpatterns = [
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     
 ]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('shop.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
