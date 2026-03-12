@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     # Local apps
     'shop',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
@@ -209,3 +211,11 @@ CHANNEL_LAYERS = {
 # DEFAULT AUTO FIELD
 # --------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dopyj44pj",
+    api_key="439474924164843",
+    api_secret="QludM15RFUtFS2lMCGKpztneeyg"
+)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
