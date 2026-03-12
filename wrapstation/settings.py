@@ -149,8 +149,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # --------------------------------------------------
 # MEDIA FILES
 # --------------------------------------------------
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # --------------------------------------------------
@@ -218,4 +216,11 @@ cloudinary.config(
     api_key="439474924164843",
     api_secret="QludM15RFUtFS2lMCGKpztneeyg"
 )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dopyj44pj',
+    'API_KEY': '439474924164843',
+    'API_SECRET': 'QludM15RFUtFS2lMCGKpztneeyg'
+}
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
