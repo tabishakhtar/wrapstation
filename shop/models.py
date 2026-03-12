@@ -47,6 +47,7 @@ class Category(models.Model):
 # =================================================
 # PRODUCT
 # =================================================
+from cloudinary.models import CloudinaryField
 class Product(models.Model):
 
     restaurant = models.ForeignKey(
@@ -69,8 +70,7 @@ class Product(models.Model):
     description = models.TextField()
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/')
-
+    image = CloudinaryField('image')
     stock = models.PositiveIntegerField(default=0)
     available = models.BooleanField(default=True)
 
