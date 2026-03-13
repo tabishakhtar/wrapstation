@@ -1,36 +1,91 @@
 {% extends 'shop/base.html' %}
 {% block content %}
 
+<style>
+
+/* MOBILE IMPROVEMENTS ONLY */
+
+@media (max-width:768px){
+
+.container{
+padding-left:15px;
+padding-right:15px;
+}
+
+/* better spacing */
+
+.edit-card{
+padding:25px;
+}
+
+/* button full width */
+
+.update-btn{
+width:100%;
+}
+
+}
+
+</style>
+
 <div class="container mt-5">
-<h2>Edit Product</h2>
+
+<div class="edit-card">
+
+<h2 class="mb-4">Edit Product</h2>
 
 <form method="post" enctype="multipart/form-data">
+
 {% csrf_token %}
 
-<input type="text" name="name" value="{{ product.name }}" class="form-control mb-3" required>
+<input type="text"
+name="name"
+value="{{ product.name }}"
+class="form-control mb-3"
+required>
 
-<textarea name="description" class="form-control mb-3">
-{{ product.description }}
-</textarea>
+<textarea name="description"
+class="form-control mb-3">{{ product.description }}</textarea>
 
-<input type="number" name="price" value="{{ product.price }}" class="form-control mb-3" required>
+<input type="number"
+name="price"
+value="{{ product.price }}"
+class="form-control mb-3"
+required>
 
-<input type="number" name="stock" value="{{ product.stock }}" class="form-control mb-3" required>
+<input type="number"
+name="stock"
+value="{{ product.stock }}"
+class="form-control mb-3"
+required>
 
 <select name="category" class="form-control mb-3">
+
 {% for category in categories %}
+
 <option value="{{ category.id }}"
 {% if product.category.id == category.id %}selected{% endif %}>
+
 {{ category.name }}
+
 </option>
+
 {% endfor %}
+
 </select>
 
-<input type="file" name="image" class="form-control mb-3">
+<input type="file"
+name="image"
+class="form-control mb-3">
 
-<button class="btn btn-success">Update Product</button>
+<button class="btn btn-success update-btn">
+Update Product
+</button>
 
 </form>
+
+</div>
+
 </div>
 
 {% endblock %}

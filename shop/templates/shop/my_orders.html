@@ -4,110 +4,235 @@
 {% block content %}
 
 <!-- HERO STYLE HEADER -->
-<section class="text-center py-5 mb-5" style="background:#f8f9fa;border-radius:25px;">
-    <h1 class="display-4 fw-bold" style="letter-spacing:2px;">
-        📦 My Orders
-    </h1>
-    <p class="text-muted">Track your delicious journey</p>
+
+<section class="text-center py-5 mb-5 hero-header">
+
+<h1 class="display-4 fw-bold hero-title">
+📦 My Orders
+</h1>
+
+<p class="text-muted">
+Track your delicious journey
+</p>
+
 </section>
 
 <div class="container">
 
 {% for order in orders %}
+
 <div class="card ultra-card mb-5 p-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="fw-bold mb-0 text-white">Order #{{ order.id }}</h5>
+<div class="order-header mb-3">
 
-        <span class="badge px-3 py-2"
-              style="background:#ff6b00;color:white;border-radius:20px;">
-            {{ order.status }}
-        </span>
-    </div>
+<h5 class="fw-bold mb-0 text-white">
+Order #{{ order.id }}
+</h5>
 
-    <!-- Progress Bar -->
-    <div class="progress mb-4" style="height:8px;border-radius:20px;background:#333;">
-        <div class="progress-bar"
-            style="
-            background:#ff6b00;
-            {% if order.status == 'Pending' %}width:25%;
-            {% elif order.status == 'Preparing' %}width:50%;
-            {% elif order.status == 'Out for Delivery' %}width:75%;
-            {% elif order.status == 'Delivered' %}width:100%;
-            {% endif %}
-            ">
-        </div>
-    </div>
-
-    <!-- Items -->
-    <div class="mb-3 text-white">
-        {% for item in order.items.all %}
-        <div class="d-flex justify-content-between">
-            <span>{{ item.product.name }} × {{ item.quantity }}</span>
-            <span class="fw-bold">Rs {{ item.price }}</span>
-        </div>
-        {% endfor %}
-    </div>
-
-    <hr style="border-color:#333;">
-
-    <div class="row mt-3 text-white">
-        <div class="col-md-4">
-            <p class="mb-1 text-light">Total</p>
-            <h6 class="fw-bold">Rs {{ order.total_amount }}</h6>
-        </div>
-
-        <div class="col-md-4">
-            <p class="mb-1 text-light">Payment</p>
-            <h6>{{ order.payment_method }}</h6>
-        </div>
-
-        <div class="col-md-4">
-            <p class="mb-1 text-light">Ordered On</p>
-            <h6>{{ order.created_at|date:"M d, Y - h:i A" }}</h6>
-        </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="mt-4 d-flex gap-3 flex-wrap">
-
-        <a href="{% url 'generate_invoice' order.id %}"
-           class="btn btn-outline-light rounded-pill px-4">
-            Download Invoice
-        </a>
-
-        {% if order.status == "Pending" %}
-        <a href="{% url 'cancel_order' order.id %}"
-           class="btn btn-danger rounded-pill px-4">
-            Cancel
-        </a>
-        {% endif %}
-
-    </div>
+<span class="badge px-3 py-2 status-badge">
+{{ order.status }}
+</span>
 
 </div>
+
+<!-- Progress Bar -->
+
+<div class="progress mb-4 progress-custom">
+
+<div class="progress-bar"
+
+style="
+background:#ff6b00;
+
+{% if order.status == 'Pending' %}width:25%;
+{% elif order.status == 'Preparing' %}width:50%;
+{% elif order.status == 'Out for Delivery' %}width:75%;
+{% elif order.status == 'Delivered' %}width:100%;
+{% endif %}
+">
+
+</div>
+
+</div>
+
+<!-- Items -->
+
+<div class="mb-3 text-white">
+
+{% for item in order.items.all %}
+
+<div class="d-flex justify-content-between item-row">
+
+<span>
+{{ item.product.name }} × {{ item.quantity }}
+</span>
+
+<span class="fw-bold">
+Rs {{ item.price }}
+</span>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<hr style="border-color:#333;">
+
+<div class="row mt-3 text-white order-info">
+
+<div class="col-md-4 col-12 mb-3">
+
+<p class="mb-1 text-light">
+Total
+</p>
+
+<h6 class="fw-bold">
+Rs {{ order.total_amount }}
+</h6>
+
+</div>
+
+<div class="col-md-4 col-12 mb-3">
+
+<p class="mb-1 text-light">
+Payment
+</p>
+
+<h6>
+{{ order.payment_method }}
+</h6>
+
+</div>
+
+<div class="col-md-4 col-12 mb-3">
+
+<p class="mb-1 text-light">
+Ordered On
+</p>
+
+<h6>
+{{ order.created_at|date:"M d, Y - h:i A" }}
+</h6>
+
+</div>
+
+</div>
+
+<!-- ACTION BUTTONS -->
+
+<div class="mt-4 d-flex gap-3 flex-wrap order-actions">
+
+<a href="{% url 'generate_invoice' order.id %}"
+class="btn btn-outline-light rounded-pill px-4">
+
+Download Invoice
+
+</a>
+
+{% if order.status == "Pending" %}
+
+<a href="{% url 'cancel_order' order.id %}"
+class="btn btn-danger rounded-pill px-4">
+
+Cancel
+
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
 {% empty %}
+
 <div class="text-center py-5">
-    <h5 class="text-muted">You haven't placed any orders yet.</h5>
+
+<h5 class="text-muted">
+You haven't placed any orders yet.
+</h5>
+
 </div>
+
 {% endfor %}
 
 </div>
 
 <style>
 
-/* BLACK CARD VERSION */
-.ultra-card {
-    border: none;
-    border-radius: 25px;
-    background: #1c1c1c;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    transition: 0.4s ease;
+/* HERO */
+
+.hero-header{
+background:#f8f9fa;
+border-radius:25px;
 }
 
-.ultra-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+.hero-title{
+letter-spacing:2px;
+}
+
+/* ORDER HEADER */
+
+.order-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.status-badge{
+background:#ff6b00;
+color:white;
+border-radius:20px;
+}
+
+/* PROGRESS */
+
+.progress-custom{
+height:8px;
+border-radius:20px;
+background:#333;
+}
+
+/* BLACK CARD */
+
+.ultra-card{
+border:none;
+border-radius:25px;
+background:#1c1c1c;
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
+transition:0.4s ease;
+}
+
+.ultra-card:hover{
+transform:translateY(-6px);
+box-shadow:0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* MOBILE FIX */
+
+@media (max-width:768px){
+
+.hero-title{
+font-size:28px;
+}
+
+/* items stack nicely */
+
+.item-row{
+flex-direction:column;
+align-items:flex-start;
+gap:3px;
+}
+
+/* buttons full width */
+
+.order-actions .btn{
+width:100%;
+}
+
 }
 
 </style>

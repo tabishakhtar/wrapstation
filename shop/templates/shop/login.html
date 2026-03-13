@@ -106,72 +106,106 @@
     color: #ffb3b3;
     font-size: 13px;
 }
+
+/* ===== MOBILE RESPONSIVE FIX ===== */
+
+@media (max-width:768px){
+
+.login-wrapper{
+padding:60px 15px;
+border-radius:20px;
+}
+
+.glass-card{
+padding:40px 25px;
+}
+
+.login-title{
+font-size:26px;
+}
+
+.login-subtitle{
+font-size:13px;
+}
+
+.form-control{
+height:50px;
+}
+
+.login-btn{
+height:50px;
+}
+
+}
+
 </style>
 
 <div class="login-wrapper">
     <div class="glass-card">
 
-        <div class="text-center mb-4">
-            <div class="login-title">🌯 Wrap Station</div>
-            <div class="login-subtitle">
-                {% if role == "admin" %}
-                    🔐 Admin Login Portal
-                {% elif role == "staff" %}
-                    🧑‍🍳 Staff Login Portal
-                {% else %}
-                    🛒 Customer Login Portal
-                {% endif %}
-            </div>
+```
+    <div class="text-center mb-4">
+        <div class="login-title">🌯 Wrap Station</div>
+        <div class="login-subtitle">
+            {% if role == "admin" %}
+                🔐 Admin Login Portal
+            {% elif role == "staff" %}
+                🧑‍🍳 Staff Login Portal
+            {% else %}
+                🛒 Customer Login Portal
+            {% endif %}
         </div>
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="error-message text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        <form method="post">
-            {% csrf_token %}
-
-            <!-- IMPORTANT hidden role field -->
-            <input type="hidden" name="role" value="{{ role }}">
-
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text"
-                       name="username"
-                       class="form-control"
-                       placeholder="Enter username"
-                       required>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label">Password</label>
-                <input type="password"
-                       name="password"
-                       class="form-control"
-                       placeholder="Enter password"
-                       required>
-            </div>
-
-            <button type="submit"
-                    class="btn login-btn w-100 text-white">
-                Secure Login
-            </button>
-        </form>
-
-        {% if role == "customer" %}
-        <div class="text-center mt-4 register-link">
-            New customer?
-            <a href="{% url 'register' %}">
-                Register here
-            </a>
-        </div>
-        {% endif %}
-
     </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="error-message text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="role" value="{{ role }}">
+
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text"
+                   name="username"
+                   class="form-control"
+                   placeholder="Enter username"
+                   required>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   placeholder="Enter password"
+                   required>
+        </div>
+
+        <button type="submit"
+                class="btn login-btn w-100 text-white">
+            Secure Login
+        </button>
+    </form>
+
+    {% if role == "customer" %}
+    <div class="text-center mt-4 register-link">
+        New customer?
+        <a href="{% url 'register' %}">
+            Register here
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+```
+
 </div>
 
 {% endblock %}

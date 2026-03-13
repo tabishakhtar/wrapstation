@@ -5,182 +5,250 @@
 <style>
 
 /* ===== PAGE ===== */
+
 .checkout-wrapper{
-    min-height:100vh;
-    background:#f2f2f2;
-    padding:100px 20px;
+min-height:100vh;
+background:#f2f2f2;
+padding:100px 20px;
 }
 
 /* ===== GRID ===== */
+
 .checkout-container{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1.6fr 1fr;
-    gap:50px;
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1.6fr 1fr;
+gap:50px;
 }
 
 /* ===== GLASS CARD ===== */
+
 .glass-card{
-    background:#111;
-    border-radius:35px;
-    padding:60px;
-    color:white;
-    box-shadow:0 30px 70px rgba(0,0,0,0.3);
+background:#111;
+border-radius:35px;
+padding:60px;
+color:white;
+box-shadow:0 30px 70px rgba(0,0,0,0.3);
 }
 
 /* ===== SUMMARY CARD ===== */
+
 .summary-card{
-    background:#111;
-    border-radius:30px;
-    padding:40px;
-    color:white;
-    height:fit-content;
-    position:sticky;
-    top:120px;
+background:#111;
+border-radius:30px;
+padding:40px;
+color:white;
+height:fit-content;
+position:sticky;
+top:120px;
 }
 
 /* ===== STEP PROGRESS ===== */
+
 .progress-steps{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:50px;
+display:flex;
+justify-content:space-between;
+margin-bottom:50px;
 }
 
 .step{
-    text-align:center;
-    flex:1;
+text-align:center;
+flex:1;
 }
 
 .step-circle{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#444;
-    margin:auto;
-    line-height:42px;
-    font-weight:bold;
-    margin-bottom:8px;
+width:42px;
+height:42px;
+border-radius:50%;
+background:#444;
+margin:auto;
+line-height:42px;
+font-weight:bold;
+margin-bottom:8px;
 }
 
 .step.active .step-circle{
-    background:linear-gradient(45deg,#ff6b00,#ff8c42);
+background:linear-gradient(45deg,#ff6b00,#ff8c42);
 }
 
 /* ===== FORM GROUP ===== */
+
 .form-group{
-    margin-bottom:30px;
-    position:relative;
+margin-bottom:30px;
+position:relative;
 }
 
 /* ===== INPUT ===== */
+
 .form-control{
-    width:100%;
-    height:55px;
-    border-radius:50px;
-    border:none;
-    padding:0 25px;
-    font-size:14px;
-    background:#f9f9f9;
+width:100%;
+height:55px;
+border-radius:50px;
+border:none;
+padding:0 25px;
+font-size:14px;
+background:#f9f9f9;
 }
 
 /* ===== TEXTAREA FIX ===== */
+
 textarea.form-control{
-    height:120px !important;
-    border-radius:25px;
-    padding-top:15px;
-    resize:none;
+height:120px !important;
+border-radius:25px;
+padding-top:15px;
+resize:none;
 }
 
 /* ===== LABEL ===== */
+
 .form-label{
-    display:block;
-    margin-bottom:8px;
-    font-size:13px;
-    color:#bbb;
-    font-weight:500;
+display:block;
+margin-bottom:8px;
+font-size:13px;
+color:#bbb;
+font-weight:500;
 }
 
 /* ===== BUTTON ===== */
+
 .pay-btn{
-    height:60px;
-    border-radius:50px;
-    background:linear-gradient(45deg,#ff6b00,#ff8c42);
-    border:none;
-    font-weight:600;
-    font-size:16px;
-    transition:0.3s;
+height:60px;
+border-radius:50px;
+background:linear-gradient(45deg,#ff6b00,#ff8c42);
+border:none;
+font-weight:600;
+font-size:16px;
+transition:0.3s;
 }
 
 .pay-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 20px 40px rgba(255,107,0,0.5);
+transform:translateY(-3px);
+box-shadow:0 20px 40px rgba(255,107,0,0.5);
 }
 
 /* ===== SUMMARY ===== */
+
 .summary-item{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:15px;
-    font-size:14px;
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-size:14px;
 }
 
 .summary-total{
-    margin-top:25px;
-    padding-top:20px;
-    border-top:1px solid #333;
-    font-size:20px;
-    font-weight:600;
+margin-top:25px;
+padding-top:20px;
+border-top:1px solid #333;
+font-size:20px;
+font-weight:600;
 }
 
+/* ===== TABLET FIX ===== */
+
 @media(max-width:992px){
+
 .checkout-container{
 grid-template-columns:1fr;
+gap:30px;
 }
+
+.summary-card{
+position:relative;
+top:auto;
+}
+
+}
+
+/* ===== MOBILE FIX ===== */
+
+@media(max-width:768px){
+
+.checkout-wrapper{
+padding:80px 15px;
+}
+
+.glass-card{
+padding:35px 25px;
+}
+
+.summary-card{
+padding:30px 25px;
+}
+
+/* stack form nicely */
+
+.progress-steps{
+gap:10px;
+}
+
+.step small{
+font-size:11px;
+}
+
+/* form spacing */
+
+.form-group{
+margin-bottom:20px;
+}
+
+.pay-btn{
+height:55px;
+font-size:15px;
+}
+
 }
 
 </style>
 
 <div class="checkout-wrapper">
+
 <div class="checkout-container">
 
 <!-- LEFT SIDE -->
+
 <div class="glass-card">
 
 <div class="progress-steps">
-    <div class="step active">
-        <div class="step-circle">1</div>
-        <small>Cart</small>
-    </div>
-    <div class="step active">
-        <div class="step-circle">2</div>
-        <small>Address</small>
-    </div>
-    <div class="step">
-        <div class="step-circle">3</div>
-        <small>Payment</small>
-    </div>
-    <div class="step">
-        <div class="step-circle">4</div>
-        <small>Done</small>
-    </div>
+
+<div class="step active">
+<div class="step-circle">1</div>
+<small>Cart</small>
+</div>
+
+<div class="step active">
+<div class="step-circle">2</div>
+<small>Address</small>
+</div>
+
+<div class="step">
+<div class="step-circle">3</div>
+<small>Payment</small>
+</div>
+
+<div class="step">
+<div class="step-circle">4</div>
+<small>Done</small>
+</div>
+
 </div>
 
 <h3 class="mb-5">🧾 Secure Checkout</h3>
 
 <form method="post">
+
 {% csrf_token %}
 
 <div class="row">
 
-<div class="col-md-6">
+<div class="col-md-6 col-12">
 <div class="form-group">
 <label class="form-label">Full Name</label>
 {{ form.full_name }}
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 col-12">
 <div class="form-group">
 <label class="form-label">Phone</label>
 {{ form.phone }}
@@ -194,14 +262,14 @@ grid-template-columns:1fr;
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 col-12">
 <div class="form-group">
 <label class="form-label">City</label>
 {{ form.city }}
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 col-12">
 <div class="form-group">
 <label class="form-label">Postal Code</label>
 {{ form.postal_code }}
@@ -230,38 +298,51 @@ Complete Order
 </div>
 
 <!-- RIGHT SIDE -->
+
 <div class="summary-card">
 
 <h5 class="mb-4">🛒 Order Summary</h5>
 
 {% for item in cart_items %}
+
 <div class="summary-item">
 <span>{{ item.product.name }} (x{{ item.quantity }})</span>
 <span>Rs {{ item.total_price }}</span>
 </div>
+
 {% endfor %}
 
 <div class="summary-total">
-Total: <span class="text-warning">Rs {{ total }}</span>
+Total:
+<span class="text-warning">Rs {{ total }}</span>
 </div>
 
 </div>
 
 </div>
+
 </div>
 
 <script>
 
 /* AUTO PHONE FORMAT */
-const phoneInput = document.querySelector("input[name='phone']");
+
+const phoneInput=document.querySelector("input[name='phone']");
+
 if(phoneInput){
-phoneInput.addEventListener("input", function(e){
-let value = e.target.value.replace(/\D/g,'');
-if(value.length > 4){
-value = value.slice(0,4) + "-" + value.slice(4,11);
+
+phoneInput.addEventListener("input",function(e){
+
+let value=e.target.value.replace(/\D/g,'');
+
+if(value.length>4){
+value=value.slice(0,4)+"-"+value.slice(4,11);
 }
-e.target.value = value;
+
+e.target.value=value;
+
 });
+
 }
 
 </script>
